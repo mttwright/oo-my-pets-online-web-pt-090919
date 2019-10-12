@@ -1,3 +1,58 @@
+require "pry"
+
 class Owner
-  # code goes here
+  
+  @@all = []
+  @@count = 0
+  
+  attr_reader :name, :species
+  
+  def initialize(name)
+    @name = name
+    @species = "human"
+    @@all.push(self)
+    @@count += 1
+  end
+  
+  def say_species
+    "I am a #{@species}."
+  end
+  
+  def self.all
+    @@all
+  end
+  
+  def self.count
+    @@count
+  end
+  
+  def self.reset_all
+    @@all.clear
+    @@count = 0
+  end
+  
+  def cats
+    Cat.all.select do |cats|
+      cats.owner == self
+    end
+  end
+  
+  def dogs
+    Dog.all.select do |dogs|
+      dogs.owner == self
+    end
+  end
+  
+  def buy_cat(cat) 
+    Cat.new(cat, self)
+  end
+  
+  def buy_dog(dog)
+    Dog.new(dog, self)
+  end
+  
+  
+  
+  
+  
 end
